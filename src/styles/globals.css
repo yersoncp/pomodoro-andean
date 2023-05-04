@@ -52,11 +52,11 @@ body {
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: #ad5389;
+  background: #1b0a23;
     /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #3c1053, #ad5389);
+    background: -webkit-linear-gradient(to right, #3c1053, #1b0a23);
     /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #3c1053, #ad5389);
+    background: linear-gradient(to right, #3c1053, #1b0a23);
     /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   }
 
@@ -69,4 +69,10 @@ a {
   html {
     color-scheme: dark;
   }
+}
+
+.gradient {
+  background: linear-gradient(70.8deg,#8bc34a 20%,#ffc107 120%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
