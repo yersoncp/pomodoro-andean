@@ -1,0 +1,18 @@
+.PomodoroWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 3rem;
+  min-height: 100vh;
+}
+
+.PomodoroHead {
+  display: flex;
+  gap: 1rem;
+}
+
+.PomodoroFooter {
+  display: flex;
+  gap: 1rem;
+}

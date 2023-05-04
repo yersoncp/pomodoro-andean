@@ -1,0 +1,44 @@
+.ButtonTab {
+  padding: .6rem 1.4rem;
+  border-radius: 2rem;
+  cursor: pointer;
+  border: none;
+  border: 1px solid rgba(255,255,255,.25);
+  background: rgba(255,255,255,.05);
+  transition: all .3s;
+  position: relative;
+}
+
+.ButtonTab:hover {
+  background: rgba(255,255,255,.1);
+  border: 1px solid rgba(255,255,255,.45);
+}
+
+/* isActive */
+.ButtonActiveTab {
+  padding: .6rem 1.4rem;
+  border-radius: 2rem;
+  border: none;
+  border: 1px solid transparent;
+  background: rgba(255,255,255,.03);
+  transition: all .3s;
+  position: relative;
+  position: relative;
+}
+
+.ButtonActiveTab::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 50px; 
+  border: 2px solid transparent;
+  background: linear-gradient(45deg,purple,orange) border-box;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) padding-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask-composite: exclude;
+}

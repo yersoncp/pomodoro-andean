@@ -2,6 +2,8 @@ import { FC, useEffect, useRef, useState } from "react"
 import Countdown, { zeroPad, CountdownTimeDelta } from "react-countdown"
 import { COUNTER_TYPE, MINUTS } from "@/config/params"
 import Counter from "@/components/Counter/Counter"
+import ButtonTab from "@/components/ButtonTab/ButtonTab"
+import s from "@/styles/Pomodoro.module.css"
 
 const PomodoroContainer = ({ }) => {
   const countdownRef = useRef() as React.MutableRefObject<Countdown>
@@ -12,13 +14,19 @@ const PomodoroContainer = ({ }) => {
   const [counterType, setCounterType] = useState<string>(COUNTER_TYPE.POMODORO)
 
   const handeSetTime = (counterType: string | typeof COUNTER_TYPE) => {
-    countdownRef.current.stop()
     const t = Date.now() + (MINUTS[counterType as keyof typeof MINUTS] * 1000 * 60)
+
+    countdownRef.current.stop()
     setTimeToCountdown(t)
+    setCounterType(COUNTER_TYPE[counterType as keyof typeof COUNTER_TYPE])
   }
 
   const handleStart = () => {
     countdownRef.current.start()
+  }
+
+  const handlePause = () => {
+    countdownRef.current.pause()
   }
 
   const handleStop = () => {
@@ -56,10 +64,19 @@ const PomodoroContainer = ({ }) => {
   }, [])
 
   return (
-    <>
-      <div>Qty pomodoro: {pomodoroQty}</div>
-      <div>Qty break: {shortBreakQty}</div>
-      <div>Counter type: {counterType}</div>
+    <div className={s.PomodoroWrapper}>
+      <div className={s.PomodoroHead}>
+        <ButtonTab
+          text={`${pomodoroQty} pomodoro`}
+          isActive={counterType === COUNTER_TYPE.POMODORO}
+          onClick={() => handeSetTime(COUNTER_TYPE.POMODORO)}
+        />
+        <ButtonTab
+          text={`${shortBreakQty} short break`}
+          isActive={counterType === COUNTER_TYPE.SHORT_BREAK}
+          onClick={() => handeSetTime(COUNTER_TYPE.SHORT_BREAK)}
+        />
+      </div>
 
       <Countdown
         ref={countdownRef}
@@ -70,17 +87,15 @@ const PomodoroContainer = ({ }) => {
         renderer={(props) => <Counter props={props} />}
       />
 
-      <div>
-        <button onClick={() => handeSetTime(COUNTER_TYPE.POMODORO)}>Set pomodoro</button>
-        {" "}
-        <button onClick={() => handeSetTime(COUNTER_TYPE.SHORT_BREAK)}>Set short break</button>
-        {" "}
+      <div className={s.PomodoroFooter}>
         <button onClick={handleStart}>Start</button>
+        {" "}
+        <button onClick={handlePause}>Pause</button>
         {" "}
         <button onClick={handleStop}>Stop</button>
       </div>
 
-    </>
+    </div>
   )
 }
 
