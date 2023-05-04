@@ -1,8 +1,9 @@
-import { FC, useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import Countdown, { zeroPad, CountdownTimeDelta } from "react-countdown"
 import { COUNTER_TYPE, MINUTS } from "@/config/params"
 import Counter from "@/components/Counter/Counter"
 import ButtonTab from "@/components/ButtonTab/ButtonTab"
+import Controls from "@/components/Controls/Controls"
 import s from "@/styles/Pomodoro.module.css"
 
 const PomodoroContainer = ({ }) => {
@@ -12,6 +13,7 @@ const PomodoroContainer = ({ }) => {
   const [pomodoroQty, setPomodoroQty] = useState<number>(0)
   const [shortBreakQty, setShortBreakQty] = useState<number>(0)
   const [counterType, setCounterType] = useState<string>(COUNTER_TYPE.POMODORO)
+  const [isStarted, setIsStarted] = useState<boolean>(false)
 
   const handeSetTime = (counterType: string | typeof COUNTER_TYPE) => {
     const t = Date.now() + (MINUTS[counterType as keyof typeof MINUTS] * 1000 * 60)
@@ -23,14 +25,17 @@ const PomodoroContainer = ({ }) => {
 
   const handleStart = () => {
     countdownRef.current.start()
+    setIsStarted(true)
   }
 
   const handlePause = () => {
     countdownRef.current.pause()
+    setIsStarted(false)
   }
 
-  const handleStop = () => {
+  const handleReset = () => {
     countdownRef.current.stop()
+    setIsStarted(false)
   }
 
   const handleTick = (evt: CountdownTimeDelta) => {
@@ -88,11 +93,12 @@ const PomodoroContainer = ({ }) => {
       />
 
       <div className={s.PomodoroFooter}>
-        <button onClick={handleStart}>Start</button>
-        {" "}
-        <button onClick={handlePause}>Pause</button>
-        {" "}
-        <button onClick={handleStop}>Stop</button>
+        <Controls
+          isStarted={isStarted}
+          onStart={handleStart}
+          onPause={handlePause}
+          onReset={handleReset}
+        />
       </div>
 
     </div>
