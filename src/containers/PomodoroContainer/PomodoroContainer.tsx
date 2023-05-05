@@ -1,10 +1,8 @@
 import { useEffect, useRef, useState } from "react"
 import Countdown, { zeroPad, CountdownTimeDelta } from "react-countdown"
 import { COUNTER_TYPE, MINUTS } from "@/config/params"
-import Counter from "@/components/Counter/Counter"
-import ButtonTab from "@/components/ButtonTab/ButtonTab"
-import Controls from "@/components/Controls/Controls"
 import s from "@/styles/Pomodoro.module.css"
+import { Button, Controls, Counter } from "@/components"
 
 const PomodoroContainer = ({ }) => {
   const countdownRef = useRef() as React.MutableRefObject<Countdown>
@@ -71,12 +69,12 @@ const PomodoroContainer = ({ }) => {
   return (
     <div className={s.PomodoroWrapper}>
       <div className={s.PomodoroHead}>
-        <ButtonTab
+        <Button
           text={`${pomodoroQty} pomodoro`}
           isActive={counterType === COUNTER_TYPE.POMODORO}
           onClick={() => handeSetTime(COUNTER_TYPE.POMODORO)}
         />
-        <ButtonTab
+        <Button
           text={`${shortBreakQty} short break`}
           isActive={counterType === COUNTER_TYPE.SHORT_BREAK}
           onClick={() => handeSetTime(COUNTER_TYPE.SHORT_BREAK)}

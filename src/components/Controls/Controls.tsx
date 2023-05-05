@@ -10,18 +10,30 @@ type ControlsProps = {
 }
 
 const Controls: FC<ControlsProps> = ({ isStarted, onStart, onPause, onReset }) => {
+  const handleToggle = () => {
+    if (isStarted) {
+      onPause()
+    } else {
+      onStart()
+    }
+  }
+
   return (
     <>
-      {isStarted ? (
-        <button className={s.ControlButton} onClick={onPause}>
-          <PauseIcon />
-        </button>
-      ) : (
-        <button className={s.ControlButton} onClick={onStart}>
-          <StartIcon />
-        </button>
-      )}
-      <button className={s.ControlDefault} onClick={onReset}>
+      <button
+        onClick={handleToggle}
+        className={[
+          s.buttonCircle,
+          s.isActive,
+        ].join(" ")}
+      >
+        {isStarted ? <PauseIcon /> : <StartIcon />}
+      </button>
+
+      <button
+        onClick={onReset}
+        className={s.buttonCircle}
+      >
         <ResetIcon />
       </button>
     </>

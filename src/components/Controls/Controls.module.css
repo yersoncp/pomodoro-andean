@@ -1,19 +1,27 @@
-.ControlButton {
-  border: none;
-  border-radius: 50%;
+.buttonCircle {
   width: 80px;
   height: 80px;
-  position: relative;
-  background: rgba(255,255,255,.03);
+  border-radius: 80px;
   cursor: pointer;
+  border: none;
+  background: transparent;
   transition: all .4s;
+  position: relative;
 }
 
-.ControlButton:hover {
+.buttonCircle svg {
+  width: 32px;
+  height: 32px;
+}
+
+.buttonCircle:hover {
   background: rgba(255,255,255,.1);
 }
 
-.ControlButton::before {
+/**
+** isActive
+**/
+.isActive::before {
   content: "";
   position: absolute;
   top: 0;
@@ -28,28 +36,4 @@
     linear-gradient(#fff 0 0);
   -webkit-mask-composite: destination-out;
   mask-composite: exclude;
-}
-
-/**
-** Default button
-**/
-
-.ControlDefault {
-  width: 80px;
-  height: 80px;
-  border-radius: 80px;
-  cursor: pointer;
-  border: none;
-  background: transparent;
-  transition: all .4s;
-  position: relative;
-}
-
-.ControlDefault svg {
-  width: 24px;
-  height: 24px;
-}
-
-.ControlDefault:hover {
-  background: rgba(255,255,255,.1);
 }
