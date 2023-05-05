@@ -5,6 +5,9 @@
   align-items: center;
   padding: 3rem;
   min-height: 100vh;
+  background: #000;
+  background: #081B34;
+  background: radial-gradient(at center bottom, #081B34, #010101);
 }
 
 .PomodoroHead {

@@ -13,7 +13,9 @@ const Counter: FC<CounterProps> = ({ props }) => {
   return (
     <>
       <div
-        className={`${s.Counter__number} ${jetBrainsMono.className}`}
+        className={
+          `${s.Counter__number} ${jetBrainsMono.className}`
+        }
       >
         {zeroPad(props?.minutes)}:{zeroPad(props?.seconds)}
       </div>

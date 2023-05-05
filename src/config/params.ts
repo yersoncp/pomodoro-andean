@@ -1,7 +1,7 @@
 export const MINUTS = {
-  POMODORO: 25,
-  SHORT_BREAK: 5,
-  LONG_BREAK: 15,
+  POMODORO: 25 * 1000 * 60,
+  SHORT_BREAK: 5 * 1000 * 60,
+  LONG_BREAK: 15 * 1000 * 60,
 }
 
 export const COUNTER_TYPE = {

@@ -14,11 +14,12 @@ const PomodoroContainer = ({ }) => {
   const [isStarted, setIsStarted] = useState<boolean>(false)
 
   const handeSetTime = (counterType: string | typeof COUNTER_TYPE) => {
-    const t = Date.now() + (MINUTS[counterType as keyof typeof MINUTS] * 1000 * 60)
+    const t = Date.now() + (MINUTS[counterType as keyof typeof MINUTS])
 
     countdownRef.current.stop()
     setTimeToCountdown(t)
     setCounterType(COUNTER_TYPE[counterType as keyof typeof COUNTER_TYPE])
+    setIsStarted(false)
   }
 
   const handleStart = () => {
@@ -42,6 +43,8 @@ const PomodoroContainer = ({ }) => {
 
   const handleComplete = () => {
     document.title = `Hurry!!!`
+    setIsStarted(false)
+
     if (audio) {
       audio.volume = 0.75
       audio.play()
@@ -57,6 +60,7 @@ const PomodoroContainer = ({ }) => {
     if (counterType === COUNTER_TYPE.SHORT_BREAK) {
       setShortBreakQty(shortBreakQty + 1)
       setCounterType(COUNTER_TYPE.POMODORO)
+      handeSetTime(COUNTER_TYPE.POMODORO)
       setCounterType(COUNTER_TYPE.POMODORO)
     }
   }
@@ -67,7 +71,9 @@ const PomodoroContainer = ({ }) => {
   }, [])
 
   return (
-    <div className={s.PomodoroWrapper}>
+    <div
+      className={s.PomodoroWrapper}
+    >
       <div className={s.PomodoroHead}>
         <Button
           text={`${pomodoroQty} pomodoro`}
