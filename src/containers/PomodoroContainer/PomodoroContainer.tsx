@@ -43,7 +43,6 @@ const PomodoroContainer = ({ }) => {
 
   const handleComplete = () => {
     document.title = `Hurry!!!`
-    setIsStarted(false)
 
     if (audio) {
       audio.volume = 0.75
@@ -52,16 +51,13 @@ const PomodoroContainer = ({ }) => {
 
     if (counterType === COUNTER_TYPE.POMODORO) {
       setPomodoroQty(pomodoroQty + 1)
-      setCounterType(COUNTER_TYPE.SHORT_BREAK)
       handeSetTime(COUNTER_TYPE.SHORT_BREAK)
       handleStart()
     }
 
     if (counterType === COUNTER_TYPE.SHORT_BREAK) {
       setShortBreakQty(shortBreakQty + 1)
-      setCounterType(COUNTER_TYPE.POMODORO)
       handeSetTime(COUNTER_TYPE.POMODORO)
-      setCounterType(COUNTER_TYPE.POMODORO)
     }
   }
 
@@ -74,6 +70,7 @@ const PomodoroContainer = ({ }) => {
     <div
       className={s.PomodoroWrapper}
     >
+      {/* Header */}
       <div className={s.PomodoroHead}>
         <Button
           text={`${pomodoroQty} pomodoro`}
@@ -96,6 +93,7 @@ const PomodoroContainer = ({ }) => {
         renderer={(props) => <Counter props={props} />}
       />
 
+      {/* Footer */}
       <div className={s.PomodoroFooter}>
         <Controls
           isStarted={isStarted}
