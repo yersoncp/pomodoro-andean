@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import Countdown, { zeroPad, CountdownTimeDelta } from 'react-countdown'
-import { COUNTER_TYPE, POMODORO_CONFIG } from '@/config/params'
+import { COUNTER_TYPE, POMODORO_CONFIG, PomodoConfigType } from '@/config/params'
 import s from '@/styles/Pomodoro.module.css'
 import { Controls, Counter, CounterTypes } from '@/components'
 
@@ -8,12 +8,11 @@ const PomodoroContainer = ({ }) => {
   const countdownRef = useRef() as React.MutableRefObject<Countdown>
   const [audio, setAudio] = useState<HTMLAudioElement>()
   const [timeToCountdown, setTimeToCountdown] = useState<number>(Date.now())
-  const [pomodoroQty, setPomodoroQty] = useState<number>(0)
-  const [shortBreakQty, setShortBreakQty] = useState<number>(0)
   const [counterType, setCounterType] = useState<string>(COUNTER_TYPE.POMODORO)
   const [isStarted, setIsStarted] = useState<boolean>(false)
+  const [pomodoroConfig, setPomodoroConfig] = useState<PomodoConfigType>(POMODORO_CONFIG)
 
-  const handeSetTime = (counterType: string) => {
+  const handeSetCountdown = (counterType: string) => {
     document.title = 'Ready!!!'
     const t = Date.now() + POMODORO_CONFIG[counterType].time
 
@@ -44,27 +43,33 @@ const PomodoroContainer = ({ }) => {
 
   const handleComplete = () => {
     document.title = 'Hurry!!!'
+    const quantityUpdated = pomodoroConfig[counterType].quantity + 1
+    const configUpdated: PomodoConfigType = {
+      ...pomodoroConfig,
+      [counterType]: {
+        ...pomodoroConfig[counterType],
+        quantity: quantityUpdated,
+      },
+    }
+
+    setPomodoroConfig(configUpdated)
 
     if (audio) {
-      audio.volume = 0.75
+      audio.volume = 0.8
       audio.play()
     }
 
     if (counterType === COUNTER_TYPE.POMODORO) {
-      setPomodoroQty(pomodoroQty + 1)
-      handeSetTime(COUNTER_TYPE.SHORT_BREAK)
+      handeSetCountdown(quantityUpdated % 5 ? COUNTER_TYPE.SHORT_BREAK : COUNTER_TYPE.LONG_BREAK)
       handleStart()
-    }
-
-    if (counterType === COUNTER_TYPE.SHORT_BREAK) {
-      setShortBreakQty(shortBreakQty + 1)
-      handeSetTime(COUNTER_TYPE.POMODORO)
+    } else {
+      handeSetCountdown(COUNTER_TYPE.POMODORO)
     }
   }
 
   useEffect(() => {
     setAudio(new Audio('/assets/grandfathers-clock.mp3'))
-    handeSetTime(COUNTER_TYPE.POMODORO)
+    handeSetCountdown(COUNTER_TYPE.POMODORO)
   }, [])
 
   return (
@@ -72,8 +77,9 @@ const PomodoroContainer = ({ }) => {
       {/* Header */}
       <div className={s.PomodoroHead}>
         <CounterTypes
+          pomodoroConfig={pomodoroConfig}
           currentCounterType={counterType}
-          onSelectCounterType={handeSetTime}
+          onSelectCounterType={handeSetCountdown}
         />
       </div>
 

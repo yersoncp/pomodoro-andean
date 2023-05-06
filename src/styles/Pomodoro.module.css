@@ -26,11 +26,11 @@
 
 .PomodoroHead {
   display: flex;
-  gap: 1rem;
+  gap: .8rem;
 }
 
 .PomodoroFooter {
   display: flex;
-  gap: 1rem;
+  gap: .8rem;
   margin-bottom: 2rem;
 }

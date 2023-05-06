@@ -1,4 +1,4 @@
-type PomodoConfigType = {
+export type PomodoConfigType = {
   [key: string]: {
     key: string
     label: string
