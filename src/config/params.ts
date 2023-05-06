@@ -1,11 +1,39 @@
-export const MINUTS = {
-  POMODORO: 25 * 1000 * 60,
-  SHORT_BREAK: 5 * 1000 * 60,
-  LONG_BREAK: 15 * 1000 * 60,
+type PomodoConfigType = {
+  [key: string]: {
+    key: string
+    label: string
+    active: boolean
+    time: number
+    quantity: number
+  }
 }
 
 export const COUNTER_TYPE = {
   POMODORO: 'POMODORO',
   SHORT_BREAK: 'SHORT_BREAK',
   LONG_BREAK: 'LONG_BREAK',
+}
+
+export const POMODORO_CONFIG: PomodoConfigType = {
+  POMODORO: {
+    key: COUNTER_TYPE.POMODORO,
+    label: 'Pomodoro',
+    active: true,
+    time: 25 * 1000 * 60,
+    quantity: 0,
+  },
+  SHORT_BREAK: {
+    key: COUNTER_TYPE.SHORT_BREAK,
+    label: 'Short Break',
+    active: true,
+    time: 5 * 1000 * 60,
+    quantity: 0,
+  },
+  LONG_BREAK: {
+    key: COUNTER_TYPE.LONG_BREAK,
+    label: 'Long break',
+    active: true,
+    time: 15 * 1000 * 60,
+    quantity: 0,
+  },
 }

@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import Countdown, { zeroPad, CountdownTimeDelta } from 'react-countdown'
-import { COUNTER_TYPE, MINUTS } from '@/config/params'
+import { COUNTER_TYPE, POMODORO_CONFIG } from '@/config/params'
 import s from '@/styles/Pomodoro.module.css'
-import { Button, Controls, Counter } from '@/components'
+import { Controls, Counter, CounterTypes } from '@/components'
 
 const PomodoroContainer = ({ }) => {
   const countdownRef = useRef() as React.MutableRefObject<Countdown>
@@ -13,12 +13,13 @@ const PomodoroContainer = ({ }) => {
   const [counterType, setCounterType] = useState<string>(COUNTER_TYPE.POMODORO)
   const [isStarted, setIsStarted] = useState<boolean>(false)
 
-  const handeSetTime = (counterType: string | typeof COUNTER_TYPE) => {
-    const t = Date.now() + (MINUTS[counterType as keyof typeof MINUTS])
+  const handeSetTime = (counterType: string) => {
+    document.title = 'Ready!!!'
+    const t = Date.now() + POMODORO_CONFIG[counterType].time
 
     countdownRef.current.stop()
     setTimeToCountdown(t)
-    setCounterType(COUNTER_TYPE[counterType as keyof typeof COUNTER_TYPE])
+    setCounterType(counterType)
     setIsStarted(false)
   }
 
@@ -70,15 +71,9 @@ const PomodoroContainer = ({ }) => {
     <div className={s.PomodoroWrapper}>
       {/* Header */}
       <div className={s.PomodoroHead}>
-        <Button
-          text={`${pomodoroQty} pomodoro`}
-          isActive={counterType === COUNTER_TYPE.POMODORO}
-          onClick={() => handeSetTime(COUNTER_TYPE.POMODORO)}
-        />
-        <Button
-          text={`${shortBreakQty} short break`}
-          isActive={counterType === COUNTER_TYPE.SHORT_BREAK}
-          onClick={() => handeSetTime(COUNTER_TYPE.SHORT_BREAK)}
+        <CounterTypes
+          currentCounterType={counterType}
+          onSelectCounterType={handeSetTime}
         />
       </div>
 
