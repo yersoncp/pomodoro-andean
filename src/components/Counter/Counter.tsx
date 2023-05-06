@@ -3,7 +3,7 @@ import { zeroPad, CountdownRenderProps } from 'react-countdown'
 import { JetBrains_Mono } from 'next/font/google'
 import s from './Counter.module.css'
 
-const jetBrainsMono = JetBrains_Mono({ weight: '100', subsets: ['latin'] })
+const jetBrainsMono = JetBrains_Mono({ weight: '400', subsets: ['latin'] })
 
 type CounterProps = {
   props: CountdownRenderProps
