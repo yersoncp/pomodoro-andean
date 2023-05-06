@@ -4,7 +4,7 @@
   border-radius: 80px;
   cursor: pointer;
   border: none;
-  background: transparent;
+  background: rgba(255,255,255,.05);
   transition: all .4s;
   position: relative;
 }

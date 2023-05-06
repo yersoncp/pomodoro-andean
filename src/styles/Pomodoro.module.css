@@ -5,9 +5,23 @@
   align-items: center;
   padding: 3rem;
   min-height: 100vh;
-  background: #000;
-  background: #081B34;
-  background: radial-gradient(at center bottom, #081B34, #010101);
+  background: url(https://cdn.dribbble.com/users/1875932/screenshots/17814063/media/d5cfcfd981024b61aa7556f4bf750428.jpg) no-repeat center center;
+  background-size: cover;
+  position: relative;
+  z-index: 0;
+}
+
+.PomodoroWrapper::after {
+  position: absolute;
+  background: black;
+  content: '';
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  opacity: .5;
+  z-index: -1;
 }
 
 .PomodoroHead {
@@ -18,4 +32,5 @@
 .PomodoroFooter {
   display: flex;
   gap: 1rem;
+  margin-bottom: 2rem;
 }
