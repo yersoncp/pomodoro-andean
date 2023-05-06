@@ -1,8 +1,8 @@
-import { useEffect, useRef, useState } from "react"
-import Countdown, { zeroPad, CountdownTimeDelta } from "react-countdown"
-import { COUNTER_TYPE, MINUTS } from "@/config/params"
-import s from "@/styles/Pomodoro.module.css"
-import { Button, Controls, Counter } from "@/components"
+import { useEffect, useRef, useState } from 'react'
+import Countdown, { zeroPad, CountdownTimeDelta } from 'react-countdown'
+import { COUNTER_TYPE, MINUTS } from '@/config/params'
+import s from '@/styles/Pomodoro.module.css'
+import { Button, Controls, Counter } from '@/components'
 
 const PomodoroContainer = ({ }) => {
   const countdownRef = useRef() as React.MutableRefObject<Countdown>
@@ -42,7 +42,7 @@ const PomodoroContainer = ({ }) => {
   }
 
   const handleComplete = () => {
-    document.title = `Hurry!!!`
+    document.title = 'Hurry!!!'
 
     if (audio) {
       audio.volume = 0.75
@@ -62,14 +62,12 @@ const PomodoroContainer = ({ }) => {
   }
 
   useEffect(() => {
-    setAudio(new Audio("/assets/grandfathers-clock.mp3"))
+    setAudio(new Audio('/assets/grandfathers-clock.mp3'))
     handeSetTime(COUNTER_TYPE.POMODORO)
   }, [])
 
   return (
-    <div
-      className={s.PomodoroWrapper}
-    >
+    <div className={s.PomodoroWrapper}>
       {/* Header */}
       <div className={s.PomodoroHead}>
         <Button

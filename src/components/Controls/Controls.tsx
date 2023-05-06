@@ -1,6 +1,6 @@
-import { FC } from "react"
-import s from "./Controls.module.css"
-import { PauseIcon, ResetIcon, StartIcon } from "../Icons"
+import { FC } from 'react'
+import s from './Controls.module.css'
+import { PauseIcon, ResetIcon, StartIcon } from '../Icons'
 
 type ControlsProps = {
   isStarted: boolean
@@ -25,7 +25,7 @@ const Controls: FC<ControlsProps> = ({ isStarted, onStart, onPause, onReset }) =
         className={[
           s.buttonCircle,
           s.isActive,
-        ].join(" ")}
+        ].join(' ')}
       >
         {isStarted ? <PauseIcon /> : <StartIcon />}
       </button>

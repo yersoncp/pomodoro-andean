@@ -1,5 +1,5 @@
-import { FC } from "react"
-import s from "./Button.module.css"
+import { FC } from 'react'
+import s from './Button.module.css'
 
 type ButtonProps = {
   text: string
@@ -13,8 +13,8 @@ const Button: FC<ButtonProps> = ({ text, isActive, onClick }) => {
       <button
         className={[
           s.button,
-          isActive ? s.isActive : "",
-        ].join(" ")}
+          isActive ? s.isActive : '',
+        ].join(' ')}
         onClick={onClick}
       >
         {text}

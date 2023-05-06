@@ -1,9 +1,9 @@
-import { FC } from "react"
-import { zeroPad, CountdownRenderProps } from "react-countdown"
+import { FC } from 'react'
+import { zeroPad, CountdownRenderProps } from 'react-countdown'
 import { JetBrains_Mono } from 'next/font/google'
-import s from "./Counter.module.css"
+import s from './Counter.module.css'
 
-const jetBrainsMono = JetBrains_Mono({ weight: "100", subsets: ["latin"] })
+const jetBrainsMono = JetBrains_Mono({ weight: '100', subsets: ['latin'] })
 
 type CounterProps = {
   props: CountdownRenderProps
