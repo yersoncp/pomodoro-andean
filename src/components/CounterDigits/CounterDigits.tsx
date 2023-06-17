@@ -1,15 +1,15 @@
 import { FC } from 'react'
 import { zeroPad, CountdownRenderProps } from 'react-countdown'
 import { JetBrains_Mono } from 'next/font/google'
-import s from './Counter.module.css'
+import s from './CounterDigits.module.css'
 
 const jetBrainsMono = JetBrains_Mono({ weight: '100', subsets: ['latin'] })
 
-type CounterProps = {
+type CounterDigitsProps = {
   props: CountdownRenderProps
 }
 
-const Counter: FC<CounterProps> = ({ props }) => {
+const CounterDigits: FC<CounterDigitsProps> = ({ props }) => {
   return (
     <>
       <div className={
@@ -21,4 +21,4 @@ const Counter: FC<CounterProps> = ({ props }) => {
   )
 }
 
-export default Counter
+export default CounterDigits

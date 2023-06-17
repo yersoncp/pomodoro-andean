@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import Countdown, { zeroPad, CountdownTimeDelta } from 'react-countdown'
 import { COUNTER_TYPE, POMODORO_CONFIG, PomodoConfigType } from '@/config/params'
 import s from '@/styles/Pomodoro.module.css'
-import { Controls, Counter, CounterTypes } from '@/components'
+import { Controls, CounterDigits, CounterTypes } from '@/components'
 
 const PomodoroContainer = ({ }) => {
   const countdownRef = useRef() as React.MutableRefObject<Countdown>
@@ -89,7 +89,7 @@ const PomodoroContainer = ({ }) => {
         autoStart={false}
         onTick={handleTick}
         onComplete={handleComplete}
-        renderer={(props) => <Counter props={props} />}
+        renderer={(props) => <CounterDigits props={props} />}
       />
 
       {/* Footer */}
