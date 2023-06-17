@@ -4,14 +4,14 @@
   cursor: pointer;
   border: none;
   border: 1px solid transparent;
-  background: var(--gray-100);
+  background: var(--gray-200);
   transition: all .3s;
   position: relative;
-  color: var(--gray-600);
+  color: var(--gray-800);
 }
 
 .button:hover {
-  background: var(--gray-200);
+  color: var(--white);
 }
 
 /* isActive */
