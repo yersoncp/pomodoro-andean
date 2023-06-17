@@ -5,8 +5,6 @@
   align-items: center;
   padding: 3rem;
   min-height: 100vh;
-  background: url(https://cdn.dribbble.com/users/1875932/screenshots/17814063/media/d5cfcfd981024b61aa7556f4bf750428.jpg) no-repeat center center;
-  background-size: cover;
   position: relative;
   z-index: 0;
 }
