@@ -1,9 +1,9 @@
 import { FC } from 'react'
 import { Button } from '..'
-import { PomodoConfigType } from '@/config/params'
+import { PomodoroConfig } from '@/config/params'
 
 type CounterTypesProps = {
-  pomodoroConfig: PomodoConfigType
+  pomodoroConfig: PomodoroConfig
   currentCounterType: string
   onSelectCounterType: (counterType: string) => void,
 }
@@ -20,10 +20,11 @@ const CounterTypes: FC<CounterTypesProps> = ({ pomodoroConfig, currentCounterTyp
             .map((counter) => (
               <Button
                 key={counter.key}
-                text={`${counter.quantity} ${counter.label}`}
                 isActive={currentCounterType === counter.key}
                 onClick={() => onSelectCounterType(counter.key)}
-              />
+              >
+                {counter.quantity} {counter.label}
+              </Button>
             ))}
         </>
       )}

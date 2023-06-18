@@ -3,23 +3,10 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 3rem;
+  padding: 2rem;
   min-height: 100vh;
   position: relative;
   z-index: 0;
-}
-
-.PomodoroWrapper::after {
-  position: absolute;
-  background: black;
-  content: '';
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  opacity: .6;
-  z-index: -1;
 }
 
 .PomodoroHead {

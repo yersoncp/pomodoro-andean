@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import Countdown, { zeroPad, CountdownTimeDelta } from 'react-countdown'
 import { COUNTER_TYPE, POMODORO_CONFIG, PomodoroConfig } from '@/config/params'
-import s from '@/styles/Pomodoro.module.css'
 import { Clock, Controls, CounterDigits, CounterTypes } from '@/components'
+import s from '@/styles/Pomodoro.module.css'
 
 const PomodoroContainer = ({ }) => {
   const countdownRef = useRef() as React.MutableRefObject<Countdown>
@@ -59,7 +59,7 @@ const PomodoroContainer = ({ }) => {
     setCurrentTimeInSeconds(0)
 
     if (audio) {
-      audio.volume = 0.8
+      audio.volume = 0.65
       audio.play()
     }
 
@@ -87,16 +87,17 @@ const PomodoroContainer = ({ }) => {
         />
       </div>
 
-      <Clock value={currentTimeInSeconds} />
+      <Clock value={currentTimeInSeconds}>
+        <Countdown
+          ref={countdownRef}
+          date={timeToCountdown}
+          autoStart={false}
+          onTick={handleTick}
+          onComplete={handleComplete}
+          renderer={(props) => <CounterDigits props={props} />}
+        />
+      </Clock>
 
-      <Countdown
-        ref={countdownRef}
-        date={timeToCountdown}
-        autoStart={false}
-        onTick={handleTick}
-        onComplete={handleComplete}
-        renderer={(props) => <CounterDigits props={props} />}
-      />
 
       {/* Footer */}
       <div className={s.PomodoroFooter}>

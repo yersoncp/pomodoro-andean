@@ -1,3 +1,7 @@
+.container {
+  position: relative;
+}
+
 .track,
 .progress {
   fill: transparent;
@@ -11,4 +15,12 @@
 
 .progress {
   stroke: var(--white);
+}
+
+/* children */
+.children {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

@@ -4,9 +4,10 @@
   border-radius: 80px;
   cursor: pointer;
   border: none;
-  background: rgba(255,255,255,.05);
+  background: var(--gray-100);
   transition: all .4s;
   position: relative;
+  color: var(--white);
 }
 
 .buttonCircle svg {
@@ -15,25 +16,9 @@
 }
 
 .buttonCircle:hover {
-  background: rgba(255,255,255,.1);
+  background: var(--gray-200);
 }
 
-/**
-** isActive
-**/
-.isActive::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  border-radius: 80px; 
-  border: 2px solid transparent;
-  background: linear-gradient(45deg,rgb(8, 123, 199),rgb(255, 0, 85)) border-box;
-  -webkit-mask:
-    linear-gradient(#fff 0 0) padding-box, 
-    linear-gradient(#fff 0 0);
-  -webkit-mask-composite: destination-out;
-  mask-composite: exclude;
+.isActive {
+  border: 1px solid var(--gray-600);
 }

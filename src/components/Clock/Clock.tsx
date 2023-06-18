@@ -1,16 +1,17 @@
-import { useEffect, useState } from 'react'
+import { ReactNode, useEffect, useState } from 'react'
 import s from './Clock.module.css'
 
-const SIZE = 180
+const SIZE = 240
 const STROKE_WIDTH = 3
 const RADIUS = (SIZE / 2) - STROKE_WIDTH
 const ARC_LENGTH = 2 * Math.PI * RADIUS
 
 type ClockProps = {
+  children?: ReactNode
   value: number;
 }
 
-const Clock = ({ value }: ClockProps) => {
+const Clock = ({ value, children }: ClockProps) => {
   const [progress, setProgress] = useState<number>(0)
   const [arcOffset, setArcOffset] = useState<number>(0)
 
@@ -28,6 +29,7 @@ const Clock = ({ value }: ClockProps) => {
 
   return (
     <div className={s.container}>
+      <div className={s.children}>{children}</div>
       <svg
         width={SIZE}
         height={SIZE}

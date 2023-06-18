@@ -1,13 +1,13 @@
-import { FC } from 'react'
+import { FC, ReactNode } from 'react'
 import s from './Button.module.css'
 
 type ButtonProps = {
-  text: string
+  children: ReactNode
   isActive?: boolean
   onClick?: () => void
 }
 
-const Button: FC<ButtonProps> = ({ text, isActive, onClick }) => {
+const Button: FC<ButtonProps> = ({ children, isActive, onClick }) => {
   return (
     <>
       <button
@@ -17,7 +17,7 @@ const Button: FC<ButtonProps> = ({ text, isActive, onClick }) => {
         ].join(' ')}
         onClick={onClick}
       >
-        {text}
+        {children}
       </button>
     </>
   )

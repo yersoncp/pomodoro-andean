@@ -8,6 +8,9 @@
   transition: all .3s;
   position: relative;
   color: var(--gray-800);
+  display: flex;
+  align-items: center;
+  gap: .6rem;
 }
 
 .button:hover {
