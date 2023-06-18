@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import Countdown, { zeroPad, CountdownTimeDelta } from 'react-countdown'
-import { COUNTER_TYPE, POMODORO_CONFIG, PomodoConfigType } from '@/config/params'
+import { COUNTER_TYPE, POMODORO_CONFIG, PomodoroConfig } from '@/config/params'
 import s from '@/styles/Pomodoro.module.css'
 import { Clock, Controls, CounterDigits, CounterTypes } from '@/components'
 
@@ -10,11 +10,13 @@ const PomodoroContainer = ({ }) => {
   const [timeToCountdown, setTimeToCountdown] = useState<number>(Date.now())
   const [counterType, setCounterType] = useState<string>(COUNTER_TYPE.POMODORO)
   const [isStarted, setIsStarted] = useState<boolean>(false)
-  const [pomodoroConfig, setPomodoroConfig] = useState<PomodoConfigType>(POMODORO_CONFIG)
+  const [pomodoroConfig, setPomodoroConfig] = useState<PomodoroConfig>(POMODORO_CONFIG)
+  const [currentTimeInSeconds, setCurrentTimeInSeconds] = useState<number>(0)
 
   const handeSetCountdown = (counterType: string) => {
     document.title = 'Ready!!!'
-    const t = Date.now() + POMODORO_CONFIG[counterType].time
+    const selectedPomodoro = POMODORO_CONFIG[counterType]
+    const t = Date.now() + selectedPomodoro.time
 
     countdownRef.current.stop()
     setTimeToCountdown(t)
@@ -38,13 +40,14 @@ const PomodoroContainer = ({ }) => {
   }
 
   const handleTick = (evt: CountdownTimeDelta) => {
+    setCurrentTimeInSeconds(evt.minutes * 60 + evt.seconds)
     document.title = `${zeroPad(evt.minutes)}:${zeroPad(evt.seconds)}`
   }
 
   const handleComplete = () => {
     document.title = 'Hurry!!!'
     const quantityUpdated = pomodoroConfig[counterType].quantity + 1
-    const configUpdated: PomodoConfigType = {
+    const configUpdated: PomodoroConfig = {
       ...pomodoroConfig,
       [counterType]: {
         ...pomodoroConfig[counterType],
@@ -53,6 +56,7 @@ const PomodoroContainer = ({ }) => {
     }
 
     setPomodoroConfig(configUpdated)
+    setCurrentTimeInSeconds(0)
 
     if (audio) {
       audio.volume = 0.8
@@ -83,7 +87,7 @@ const PomodoroContainer = ({ }) => {
         />
       </div>
 
-      <Clock />
+      <Clock value={currentTimeInSeconds} />
 
       <Countdown
         ref={countdownRef}

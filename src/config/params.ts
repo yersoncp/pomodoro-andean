@@ -1,11 +1,13 @@
-export type PomodoConfigType = {
-  [key: string]: {
-    key: string
-    label: string
-    active: boolean
-    time: number
-    quantity: number
-  }
+export type PomodoroConfigItem = {
+  key: string
+  label: string
+  active: boolean
+  time: number
+  quantity: number
+}
+
+export type PomodoroConfig = {
+  [key: string]: PomodoroConfigItem
 }
 
 export const COUNTER_TYPE = {
@@ -14,7 +16,7 @@ export const COUNTER_TYPE = {
   LONG_BREAK: 'LONG_BREAK',
 }
 
-export const POMODORO_CONFIG: PomodoConfigType = {
+export const POMODORO_CONFIG: PomodoroConfig = {
   POMODORO: {
     key: COUNTER_TYPE.POMODORO,
     label: 'Pomodoro',
