@@ -10,6 +10,8 @@ export type PomodoroConfig = {
   [key: string]: PomodoroConfigItem
 }
 
+export const LOCAL_STORAGE_KEY = 'pomodoroStore'
+
 export const COUNTER_TYPE = {
   POMODORO: 'POMODORO',
   SHORT_BREAK: 'SHORT_BREAK',

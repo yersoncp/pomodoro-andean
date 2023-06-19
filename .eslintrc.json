@@ -52,6 +52,7 @@
     ],
     "object-curly-newline": "off",
     "arrow-body-style": "off",
-    "no-underscore-dangle": "off"
+    "no-underscore-dangle": "off",
+    "react-hooks/exhaustive-deps": "off"
   }
 }

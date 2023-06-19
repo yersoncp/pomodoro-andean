@@ -1,10 +1,13 @@
 import { useEffect, useRef, useState } from 'react'
 import Countdown, { zeroPad, CountdownTimeDelta } from 'react-countdown'
-import { COUNTER_TYPE, POMODORO_CONFIG, PomodoroConfig } from '@/config/params'
+import { COUNTER_TYPE, LOCAL_STORAGE_KEY, POMODORO_CONFIG, PomodoroConfig } from '@/config/params'
 import { Clock, Controls, CounterDigits, CounterTypes } from '@/components'
 import s from '@/styles/Pomodoro.module.css'
+import { useLocalStorage } from '@/hooks'
 
 const PomodoroContainer = ({ }) => {
+  const [] = useLocalStorage<PomodoroConfig>(LOCAL_STORAGE_KEY, POMODORO_CONFIG)
+
   const countdownRef = useRef() as React.MutableRefObject<Countdown>
   const [audio, setAudio] = useState<HTMLAudioElement>()
   const [timeToCountdown, setTimeToCountdown] = useState<number>(Date.now())
