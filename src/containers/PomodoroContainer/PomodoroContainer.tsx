@@ -1,19 +1,18 @@
 import { useEffect, useRef, useState } from 'react'
 import Countdown, { zeroPad, CountdownTimeDelta } from 'react-countdown'
-import { COUNTER_TYPE, LOCAL_STORAGE_KEY, POMODORO_CONFIG, PomodoroConfig } from '@/config/params'
+import { COUNTER_TYPE, LOCAL_STORAGE_KEY, POMODORO_CONFIG, PomodoroConfig, PomodoroConfigItem } from '@/config/params'
 import { Clock, Controls, CounterDigits, CounterTypes } from '@/components'
 import s from '@/styles/Pomodoro.module.css'
 import { useLocalStorage } from '@/hooks'
 
 const PomodoroContainer = ({ }) => {
-  const [] = useLocalStorage<PomodoroConfig>(LOCAL_STORAGE_KEY, POMODORO_CONFIG)
+  const [config, setConfig] = useLocalStorage<PomodoroConfig>(LOCAL_STORAGE_KEY, POMODORO_CONFIG)
+  const [currentPomodoro, setCurrentPomodoro] = useState<PomodoroConfigItem>(POMODORO_CONFIG[COUNTER_TYPE.POMODORO])
 
   const countdownRef = useRef() as React.MutableRefObject<Countdown>
   const [audio, setAudio] = useState<HTMLAudioElement>()
   const [timeToCountdown, setTimeToCountdown] = useState<number>(Date.now())
-  const [counterType, setCounterType] = useState<string>(COUNTER_TYPE.POMODORO)
   const [isStarted, setIsStarted] = useState<boolean>(false)
-  const [pomodoroConfig, setPomodoroConfig] = useState<PomodoroConfig>(POMODORO_CONFIG)
   const [currentTimeInSeconds, setCurrentTimeInSeconds] = useState<number>(0)
 
   const handeSetCountdown = (counterType: string) => {
@@ -21,9 +20,10 @@ const PomodoroContainer = ({ }) => {
     const selectedPomodoro = POMODORO_CONFIG[counterType]
     const t = Date.now() + selectedPomodoro.time
 
+    setCurrentPomodoro(selectedPomodoro)
+
     countdownRef.current.stop()
     setTimeToCountdown(t)
-    setCounterType(counterType)
     setIsStarted(false)
   }
 
@@ -49,16 +49,16 @@ const PomodoroContainer = ({ }) => {
 
   const handleComplete = () => {
     document.title = 'Hurry!!!'
-    const quantityUpdated = pomodoroConfig[counterType].quantity + 1
+    const quantityUpdated = currentPomodoro.quantity + 1
     const configUpdated: PomodoroConfig = {
-      ...pomodoroConfig,
-      [counterType]: {
-        ...pomodoroConfig[counterType],
+      ...config,
+      [currentPomodoro.key]: {
+        ...currentPomodoro,
         quantity: quantityUpdated,
       },
     }
 
-    setPomodoroConfig(configUpdated)
+    setConfig(configUpdated)
     setCurrentTimeInSeconds(0)
 
     if (audio) {
@@ -66,7 +66,7 @@ const PomodoroContainer = ({ }) => {
       audio.play()
     }
 
-    if (counterType === COUNTER_TYPE.POMODORO) {
+    if (currentPomodoro.key === COUNTER_TYPE.POMODORO) {
       handeSetCountdown(quantityUpdated % 5 ? COUNTER_TYPE.SHORT_BREAK : COUNTER_TYPE.LONG_BREAK)
       handleStart()
     } else {
@@ -84,13 +84,13 @@ const PomodoroContainer = ({ }) => {
       {/* Header */}
       <div className={s.PomodoroHead}>
         <CounterTypes
-          pomodoroConfig={pomodoroConfig}
-          currentCounterType={counterType}
+          pomodoroConfig={config}
+          currentCounterType={currentPomodoro.key}
           onSelectCounterType={handeSetCountdown}
         />
       </div>
 
-      <Clock max={pomodoroConfig[counterType].time} value={currentTimeInSeconds}>
+      <Clock max={currentPomodoro?.time} value={currentTimeInSeconds}>
         <Countdown
           ref={countdownRef}
           date={timeToCountdown}

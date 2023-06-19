@@ -18,7 +18,7 @@ const Clock = ({ max, value, children }: ClockProps) => {
 
   useEffect(() => {
     if (value) {
-      setProgress(100 - (value / 1500) * 100)
+      setProgress(100 - (value / (max / 1000)) * 100)
     } else {
       setProgress(0)
     }
