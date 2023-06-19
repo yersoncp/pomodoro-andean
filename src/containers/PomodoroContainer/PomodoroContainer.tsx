@@ -6,10 +6,10 @@ import s from '@/styles/Pomodoro.module.css'
 import { useLocalStorage } from '@/hooks'
 
 const PomodoroContainer = ({ }) => {
+  const countdownRef = useRef() as React.MutableRefObject<Countdown>
   const [config, setConfig] = useLocalStorage<PomodoroConfig>(LOCAL_STORAGE_KEY, POMODORO_CONFIG)
   const [currentPomodoro, setCurrentPomodoro] = useState<PomodoroConfigItem>(POMODORO_CONFIG[COUNTER_TYPE.POMODORO])
 
-  const countdownRef = useRef() as React.MutableRefObject<Countdown>
   const [audio, setAudio] = useState<HTMLAudioElement>()
   const [timeToCountdown, setTimeToCountdown] = useState<number>(Date.now())
   const [isStarted, setIsStarted] = useState<boolean>(false)
@@ -20,9 +20,8 @@ const PomodoroContainer = ({ }) => {
     const selectedPomodoro = POMODORO_CONFIG[counterType]
     const t = Date.now() + selectedPomodoro.time
 
-    setCurrentPomodoro(selectedPomodoro)
-
     countdownRef.current.stop()
+    setCurrentPomodoro(selectedPomodoro)
     setTimeToCountdown(t)
     setIsStarted(false)
   }
@@ -61,16 +60,16 @@ const PomodoroContainer = ({ }) => {
     setConfig(configUpdated)
     setCurrentTimeInSeconds(0)
 
-    if (audio) {
-      audio.volume = 0.65
-      audio.play()
-    }
-
     if (currentPomodoro.key === COUNTER_TYPE.POMODORO) {
       handeSetCountdown(quantityUpdated % 5 ? COUNTER_TYPE.SHORT_BREAK : COUNTER_TYPE.LONG_BREAK)
       handleStart()
     } else {
       handeSetCountdown(COUNTER_TYPE.POMODORO)
+    }
+
+    if (audio) {
+      audio.volume = 0.65
+      audio.play()
     }
   }
 
