@@ -87,7 +87,7 @@ const PomodoroContainer = ({ }) => {
         />
       </div>
 
-      <Clock value={currentTimeInSeconds}>
+      <Clock max={pomodoroConfig[counterType].time} value={currentTimeInSeconds}>
         <Countdown
           ref={countdownRef}
           date={timeToCountdown}

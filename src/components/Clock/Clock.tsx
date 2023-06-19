@@ -7,11 +7,12 @@ const RADIUS = (SIZE / 2) - STROKE_WIDTH
 const ARC_LENGTH = 2 * Math.PI * RADIUS
 
 type ClockProps = {
-  children?: ReactNode
+  max: number;
   value: number;
+  children?: ReactNode
 }
 
-const Clock = ({ value, children }: ClockProps) => {
+const Clock = ({ max, value, children }: ClockProps) => {
   const [progress, setProgress] = useState<number>(0)
   const [arcOffset, setArcOffset] = useState<number>(0)
 
@@ -21,7 +22,7 @@ const Clock = ({ value, children }: ClockProps) => {
     } else {
       setProgress(0)
     }
-  }, [value])
+  }, [max, value])
 
   useEffect(() => {
     setArcOffset(ARC_LENGTH * ((100 - progress) / 100))
